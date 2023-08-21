@@ -1,4 +1,4 @@
-
+import numpy as np
 
 def sharpe_ratio(asset_returns, rfr): 
     """

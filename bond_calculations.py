@@ -124,9 +124,3 @@ def bond_ytm(nominal, market_price, coupon, maturity):
     ytm = numerator / denominator
     
     return ytm
-
-
-
-def new_function(name):
-    return name.upper()
-    

@@ -1,4 +1,6 @@
-
+"""
+This file contains calculation functions to aid in bond analysis
+"""
 
 
 def bond_price(nominal, coupon, ytm, maturity, freq=2):

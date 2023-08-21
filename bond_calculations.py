@@ -1,7 +1,7 @@
 """
 This file contains calculation functions to aid in bond analysis
 """
-
+import numpy as np
 
 
 def bond_price(nominal: float, coupon: float, ytm: float, maturity: int, freq=2):

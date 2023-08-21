@@ -3,7 +3,7 @@ This file contains calculation functions to aid in bond analysis
 """
 
 
-def bond_price(nominal, coupon, ytm, maturity, freq=2):
+def bond_price(nominal: float, coupon: float, ytm: float, maturity: int, freq=2):
     """
     calculates the price of a bond
     
@@ -34,7 +34,7 @@ def bond_price(nominal, coupon, ytm, maturity, freq=2):
 
 
 
-def bond_duration(nominal, coupon, ytm, maturity, freq=2):
+def bond_duration(nominal: float, coupon: float, ytm: float, maturity: int, freq: int=2):
     """
     calculates the duration of a bond using the Macaulay equation
     
@@ -71,7 +71,7 @@ def bond_duration(nominal, coupon, ytm, maturity, freq=2):
 
 
 
-def bond_convexity(nominal, coupon, ytm, maturity, freq=2):
+def bond_convexity(nominal: float, coupon: float, ytm: float, maturity: int, freq: int=2):
     """
     estimates the convexity of a bond
     
@@ -101,7 +101,7 @@ def bond_convexity(nominal, coupon, ytm, maturity, freq=2):
 
 
 
-def bond_ytm(nominal, market_price, coupon, maturity):
+def bond_ytm(nominal: float, market_price: float, coupon: float, maturity: int):
     """
     estimates the yield to maturity of a bond
     
@@ -122,6 +122,5 @@ def bond_ytm(nominal, market_price, coupon, maturity):
     ytm = numerator / denominator
     
     return ytm
-
 
 

@@ -1,6 +1,6 @@
 import numpy as np
 
-def sharpe_ratio(asset_returns, rfr): 
+def sharpe_ratio(asset_returns: float, rfr: float): 
     """
     returns the sharpe ratio for an asset
     
@@ -14,10 +14,10 @@ def sharpe_ratio(asset_returns, rfr):
     excess_rets = asset_returns - (rfr / 252)
     sigma = excess_rets.std()
     return np.sqrt(252) * (excess_rets.mean() / sigma)
-    
+
     
 
-def beta(index_returns, asset_returns):
+def beta(index_returns: float, asset_returns: float):
     """
     returns the beta for an asset
     
@@ -30,5 +30,6 @@ def beta(index_returns, asset_returns):
     
     covariance = np.cov(index_returns, asset_returns)[0][1]
     return covariance / np.var(index_returns)
+    
     
     

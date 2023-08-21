@@ -34,7 +34,7 @@ def bond_price(nominal, coupon, ytm, maturity, freq=2):
 
 
 
-def bond_duration(nominal, coupon, ytm, maturity, freq=2, annual=True):
+def bond_duration(nominal, coupon, ytm, maturity, freq=2):
     """
     calculates the duration of a bond using the Macaulay equation
     
@@ -44,7 +44,6 @@ def bond_duration(nominal, coupon, ytm, maturity, freq=2, annual=True):
         ytm (float): the yield to maturity (example: 0.06 (6%))
         maturity (int): the number of years to maturity
         freq (int): the number of payments in a year
-        annual (bool): decides wether to return duration in reference to freq or annually   ** note that when estimating the convexity/duration, annual needs to == True **
     returns:
         duration (float): the duration of the bond
         mod_duration (float): the modified version 
@@ -64,8 +63,7 @@ def bond_duration(nominal, coupon, ytm, maturity, freq=2, annual=True):
         else: 
             numerator += (total_periods * (nominal + coupon_payment)) / (1 + period_yield) ** total_periods
 
-    duration = numerator / price
-    duration = duration / freq if not annual else duration
+    duration = (numerator / price) / freq
     
     mod_duration = duration / (1 + (ytm / freq))
     

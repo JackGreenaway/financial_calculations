@@ -60,7 +60,7 @@ def bond_duration(nominal, coupon, ytm, maturity, freq=2, annual=True):
     for t in range(1, total_periods + 1):
         if t != total_periods:
             numerator += (t * coupon_payment) / (1 + period_yield) ** t
-            test += 0.5
+
         else: 
             numerator += (total_periods * (nominal + coupon_payment)) / (1 + period_yield) ** total_periods
 

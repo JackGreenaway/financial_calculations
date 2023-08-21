@@ -2,8 +2,6 @@
 This file contains calculation functions to aid in bond analysis
 """
 
-import numpy as np
-
 
 
 def bond_price(nominal: float, coupon: float, ytm: float, maturity: int, freq=2):
@@ -152,14 +150,13 @@ def adjusted_bond_price(nominal: float, coupon: float, ytm: float, maturity: int
     price = bond_price(nominal=nominal, coupon=coupon, ytm=ytm, maturity=maturity, freq=2)
 
     bond_prices = []
-
+    # Δ bond price = -duration * Δy * 1/2 * conv * (Δy) ** 2
     for i in yield_change_range:
         one = -duration * i
         two = 1/2 * conv * (i ** 2)
-        three = (one + two)
-        four = three + 1
+        three = (one + two) + 1 # the 1 is added so you can just multiply by this value (e.g, 0.09 vs 1.09 for a 9% increase)
         
-        bond_prices.append(four * price)
+        bond_prices.append(three * price)
         
     if return_yields:
         return bond_prices, yield_change_range

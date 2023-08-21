@@ -2,6 +2,9 @@
 This file contains calculation functions to aid in bond analysis
 """
 
+import numpy as np
+
+
 
 def bond_price(nominal: float, coupon: float, ytm: float, maturity: int, freq=2):
     """
@@ -122,5 +125,46 @@ def bond_ytm(nominal: float, market_price: float, coupon: float, maturity: int):
     ytm = numerator / denominator
     
     return ytm
+
+
+
+def adjusted_bond_price(nominal: float, coupon: float, ytm: float, maturity: int, freq: int=2, yield_changes: list=[-0.15, 0.15, 0.0001], return_yields=False):
+    """
+    returns the list of adjusted bond prices with use of duration and convexity
+    
+    parameters:
+        nominal (float): the nominal value the bond
+        coupon (float): the coupon rate of the bond (example: 0.06 (6%))
+        ytm (float): the yield to maturity (example: 0.06 (6%))
+        maturity (int): the number of years to maturity
+        freq (int): the number of payments in a year
+        yield_changes (list): the range of rate changes to test with the step
+        return_yields (bool): returns the list of yields for aid in plotting
+    returns:
+        bond_prices (list): vector of bond_prices corresponding to rate
+        yield_change_range (list)
+    """
+    
+    yield_change_range = np.arange(yield_changes[0], yield_changes[1], yield_changes[2])
+    
+    duration = bond_duration(nominal=nominal, coupon=coupon, ytm=ytm, maturity=maturity, freq=2)[1]
+    conv = bond_convexity(nominal=nominal, coupon=coupon, ytm=ytm, maturity=maturity, freq=2)
+    price = bond_price(nominal=nominal, coupon=coupon, ytm=ytm, maturity=maturity, freq=2)
+
+    bond_prices = []
+
+    for i in yield_change_range:
+        one = -duration * i
+        two = 1/2 * conv * (i ** 2)
+        three = (one + two)
+        four = three + 1
+        
+        bond_prices.append(four * price)
+        
+    if return_yields:
+        return bond_prices, yield_change_range
+    else:
+        return bond_prices
+
 
 

@@ -56,20 +56,25 @@ def asset_drawdown(asset: str, start_time: str, end_time: str=None, plot: bool=F
     daily_drawdown = data / rolling_max - 1
     max_daily_drawdown = daily_drawdown.rolling(window, min_periods=1).min()
     
+    print(f"Maximum Drawdown: {daily_drawdown.min() * 100:.2f}% on {daily_drawdown.idxmin().strftime('%d-%m-%Y')}")
+    
     if plot:
         fig, ax = plt.subplots(2, 1, figsize=(18, 6), sharex=False)
+        
+        fig.suptitle(f"Drawdown Information for {asset}")
 
+        ax[0].set_title("Drawdowns")
         ax[0].plot(daily_drawdown * 100, label="Daily Drawdown")
-        ax[0].plot(max_daily_drawdown * 100, label="Max Daily Drawdown")
+        ax[0].plot(max_daily_drawdown * 100, label=f"Rolling {window} Day Drawdown")
         ax[0].set_ylabel("% Change")
         ax[0].legend()
 
+        ax[1].set_title(f"{asset} Price")
         ax[1].plot(data, label="Stock Price")
-        ax[1].set_ylabel("Stock Price ($)")
+        ax[1].set_ylabel("Asset Price ($)")
         ax[1].legend()
     else:
         return daily_drawdown, max_daily_drawdown
-    
     
     
     

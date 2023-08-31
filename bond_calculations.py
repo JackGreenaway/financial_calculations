@@ -35,7 +35,7 @@ def bond_price(nominal: float, coupon: float, ytm: float, maturity: int, freq=2)
 
 
 
-def bond_duration(nominal: float, coupon: float, ytm: float, maturity: int, freq: int=2):
+def bond_duration(nominal: float, coupon: float, ytm: float, maturity: int, modified_duration=False, freq: int=2):
     """
     calculates the duration of a bond using the Macaulay equation
     
@@ -60,7 +60,6 @@ def bond_duration(nominal: float, coupon: float, ytm: float, maturity: int, freq
     for t in range(1, total_periods + 1):
         if t != total_periods:
             numerator += (t * coupon_payment) / (1 + period_yield) ** t
-
         else: 
             numerator += (total_periods * (nominal + coupon_payment)) / (1 + period_yield) ** total_periods
 
@@ -68,7 +67,10 @@ def bond_duration(nominal: float, coupon: float, ytm: float, maturity: int, freq
     
     mod_duration = duration / (1 + (ytm / freq))
     
-    return duration, mod_duration
+    if modified_duration:
+        return mod_duration
+    else:
+        return duration
 
 
 

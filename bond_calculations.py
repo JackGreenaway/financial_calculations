@@ -166,4 +166,3 @@ def adjusted_bond_price(nominal: float, coupon: float, ytm: float, maturity: int
         return bond_prices
 
 
-

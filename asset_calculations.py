@@ -57,7 +57,8 @@ def asset_drawdown(asset: str, start_time: str, end_time: str=None, plot: bool=F
     max_daily_drawdown = daily_drawdown.rolling(window, min_periods=1).min()
     
     print(f"Maximum Drawdown: {daily_drawdown.min() * 100:.2f}% on {daily_drawdown.idxmin().strftime('%d-%m-%Y')}")
-    print(f"Recent {window} Day Maximum Drawdown: {max_daily_drawdown[-1] * 100:.2f}% on {max_daily_drawdown.loc[max_daily_drawdown == max_daily_drawdown[-1]].index[0].strftime('%d-%m-%Y')}")
+    print(f"Recent {window} Day Maximum Drawdown: {max_daily_drawdown[-1] * 100:.2f}% on \
+        {max_daily_drawdown.loc[max_daily_drawdown == max_daily_drawdown[-1]].index[0].strftime('%d-%m-%Y')}")
     
     if plot:
         fig, ax = plt.subplots(2, 1, figsize=(18, 6), sharex=False)
